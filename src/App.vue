@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { Header } from '@/components/ui'
-import SideBar from './components/ui/sideBar/sideBar.vue'
+import LayoutsMain from '@/layouts/layouts--main.vue'
 </script>
 
 <template>
   <v-app>
-    <Header />
-
-    <SideBar />
+    <LayoutsMain />
   </v-app>
 </template>

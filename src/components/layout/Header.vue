@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const emit = defineEmits(['change'])
+const emit = defineEmits<{
+  (event: 'change'): void
+}>()
 import { mdiPlus } from '@mdi/js'
 </script>
 

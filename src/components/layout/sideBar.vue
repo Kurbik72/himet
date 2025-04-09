@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import FormInSideBar from '../formInSideBar/FormInSideBar.vue'
+import FormInSideBar from '@/components/drawer/FormInSideBar.vue'
 
-const { modelValue = true } = defineProps({
+const props = defineProps({
   modelValue: Boolean,
 })
 const emit = defineEmits(['update:modelValue'])
@@ -9,12 +9,12 @@ const emit = defineEmits(['update:modelValue'])
 
 <template>
   <v-navigation-drawer
-    :model-value="modelValue"
+    :model-value="props.modelValue"
     temporary
     @update:model-value="emit('update:modelValue')"
   >
     <FormInSideBar
-      :is-open="modelValue"
+      :is-open="props.modelValue"
       @close="emit('update:modelValue')"
     />
   </v-navigation-drawer>
