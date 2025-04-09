@@ -5,6 +5,9 @@ const props = defineProps({
   modelValue: Boolean,
 })
 const emit = defineEmits(['update:modelValue'])
+const handleClose = () => {
+  emit('update:modelValue', false)
+}
 </script>
 
 <template>
@@ -15,7 +18,7 @@ const emit = defineEmits(['update:modelValue'])
   >
     <FormInSideBar
       :is-open="props.modelValue"
-      @close="emit('update:modelValue')"
+      @close="handleClose"
     />
   </v-navigation-drawer>
 </template>
