@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useNotesStore } from '@/stores/notes'
-import { onMounted } from 'vue'
 import { reactive } from 'vue'
 const notesStore = useNotesStore()
 const form = reactive({
@@ -10,9 +9,6 @@ const form = reactive({
 })
 const emit = defineEmits(['close'])
 
-onMounted(() => {
-  notesStore.loadFromLocalStorage()
-})
 const createNote = () => {
   if (form.date && form.title) {
     notesStore.addNote({
@@ -22,6 +18,9 @@ const createNote = () => {
     })
   }
   emit('close')
+  form.date = ''
+  form.title = ''
+  form.description = ''
 }
 </script>
 
