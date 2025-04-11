@@ -7,6 +7,10 @@ const notesStore = useNotesStore()
 onMounted(() => {
   notesStore.loadFromLocalStorage()
 })
+
+const deleteNote = (id: string) => {
+  notesStore.deleteNote(id)
+}
 </script>
 
 <template>
@@ -27,6 +31,7 @@ onMounted(() => {
           <v-icon
             :icon="mdiDelete"
             size="20"
+            @click="deleteNote(note.id)"
           />
         </v-expand-transition>
       </div>

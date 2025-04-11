@@ -1,4 +1,4 @@
-import type { Note } from '@/types/note.types'
+import type { INotesFilter, Note } from '@/types/note.types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -25,6 +25,9 @@ export const useNotesStore = defineStore('notes', () => {
     saveToLocalStorage()
   }
 
+  const getNotesByFilter = (filter: INotesFilter) => {
+    return notes.value.filter((note) => note.date === filter.date)
+  }
   const deleteNote = (id: string) => {
     notes.value = notes.value.filter((note) => note.id !== id)
     saveToLocalStorage()
@@ -33,6 +36,7 @@ export const useNotesStore = defineStore('notes', () => {
     notes,
     loadFromLocalStorage,
     addNote,
+    getNotesByFilter,
     deleteNote,
   }
 })
