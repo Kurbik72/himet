@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useNotesStore } from '@/stores/notes'
-import { onMounted } from 'vue'
+import { onMounted,computed } from 'vue'
 import { mdiDelete } from '@mdi/js'
 
 const notesStore = useNotesStore()
@@ -11,12 +11,13 @@ onMounted(() => {
 const deleteNote = (id: string) => {
   notesStore.deleteNote(id)
 }
+const filteredNotes = computed(() => notesStore.getFilteredNotes())
 </script>
 
 <template>
   <div class="item">
     <v-sheet
-      v-for="note of notesStore.notes"
+      v-for="note of filteredNotes"
       :key="note.id"
       class="d-flex justify-space-between pa-2 bg-surface-variant w-50"
       rounded

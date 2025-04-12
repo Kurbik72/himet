@@ -4,6 +4,7 @@ import { ref } from 'vue'
 
 export const useNotesStore = defineStore('notes', () => {
   const notes = ref<Note[]>([])
+  const currentFilter = ref<INotesFilter>({})
 
   const loadFromLocalStorage = () => {
     const saved = localStorage.getItem('notes')
@@ -25,8 +26,18 @@ export const useNotesStore = defineStore('notes', () => {
     saveToLocalStorage()
   }
 
+  //тут я храню параметры фильтрации 
+  const setFilter = (filter:INotesFilter) => {
+    return currentFilter.value = filter
+  }
+
+  
+
   const getNotesByFilter = (filter: INotesFilter) => {
-    return notes.value.filter((note) => note.date === filter.date)
+    return notes.value.filter(note => note.date === filter.date)
+  }
+  const getFilteredNotes = () => {
+    return getNotesByFilter(currentFilter.value)
   }
   const deleteNote = (id: string) => {
     notes.value = notes.value.filter((note) => note.id !== id)
@@ -36,6 +47,9 @@ export const useNotesStore = defineStore('notes', () => {
     notes,
     loadFromLocalStorage,
     addNote,
+    currentFilter,
+    setFilter,
+    getFilteredNotes,
     getNotesByFilter,
     deleteNote,
   }

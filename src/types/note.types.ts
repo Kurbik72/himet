@@ -8,5 +8,5 @@ export interface Note {
 export type NoteDate = string
 
 export interface INotesFilter {
-  date: string
+  date?: string 
 }
