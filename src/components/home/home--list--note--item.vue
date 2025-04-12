@@ -17,6 +17,7 @@ const filteredNotes = computed(() => notesStore.getFilteredNotes())
 <template>
   <div class="item">
     <v-sheet
+    
       v-for="note of filteredNotes"
       :key="note.id"
       class="d-flex justify-space-between pa-2 bg-surface-variant w-50"

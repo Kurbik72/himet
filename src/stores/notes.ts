@@ -26,7 +26,7 @@ export const useNotesStore = defineStore('notes', () => {
     saveToLocalStorage()
   }
 
-  //тут я храню параметры фильтрации 
+  //тут я храню параметры фильтрации
   const setFilter = (filter:INotesFilter) => {
     return currentFilter.value = filter
   }
@@ -34,9 +34,13 @@ export const useNotesStore = defineStore('notes', () => {
   
 
   const getNotesByFilter = (filter: INotesFilter) => {
-    return notes.value.filter(note => note.date === filter.date)
+    return notes.value.filter(note => note.date === filter?.date)
   }
   const getFilteredNotes = () => {
+    
+    const isFilterEmpty = currentFilter.value.date === undefined 
+    if(isFilterEmpty) return notes.value
+    
     return getNotesByFilter(currentFilter.value)
   }
   const deleteNote = (id: string) => {

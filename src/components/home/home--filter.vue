@@ -9,7 +9,6 @@ const notesStore = useNotesStore()
 watchEffect(() => {
   notesStore.setFilter({ date: date.value })
 
-  console.log(notesStore.setFilter())
 })
 </script>
 
