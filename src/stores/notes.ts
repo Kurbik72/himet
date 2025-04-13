@@ -1,7 +1,12 @@
 import type { INotesFilter, Note } from '@/types/note.types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
 
+const toast = useToast()
+
+const showToast = () => toast.success('Note created successfully')
+const errorToast = () => toast.error('Note deleted successfully')
 export const useNotesStore = defineStore('notes', () => {
   const notes = ref<Note[]>([])
   const currentFilter = ref<INotesFilter>({})
@@ -24,28 +29,27 @@ export const useNotesStore = defineStore('notes', () => {
     }
     notes.value.push(newNote)
     saveToLocalStorage()
+    showToast()
   }
 
   //тут я храню параметры фильтрации
-  const setFilter = (filter:INotesFilter) => {
-    return currentFilter.value = filter
+  const setFilter = (filter: INotesFilter) => {
+    return (currentFilter.value = filter)
   }
-
-  
 
   const getNotesByFilter = (filter: INotesFilter) => {
-    return notes.value.filter(note => note.date === filter?.date)
+    return notes.value.filter((note) => note.date === filter?.date)
   }
   const getFilteredNotes = () => {
-    
-    const isFilterEmpty = currentFilter.value.date === undefined 
-    if(isFilterEmpty) return notes.value
-    
+    const isFilterEmpty = currentFilter.value.date === undefined
+    if (isFilterEmpty) return notes.value
+
     return getNotesByFilter(currentFilter.value)
   }
   const deleteNote = (id: string) => {
     notes.value = notes.value.filter((note) => note.id !== id)
     saveToLocalStorage()
+    errorToast()
   }
   return {
     notes,
