@@ -2,7 +2,8 @@
 import { useNotesStore } from '@/stores/notes'
 import { reactive } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
-import { required, minLength } from '@vuelidate/validators'
+import { useGetValidation } from '@/composables/useGetValidation'
+import { validationRules } from '../services/api/validation-service'
 const notesStore = useNotesStore()
 const form = reactive({
   date: '',
@@ -11,11 +12,13 @@ const form = reactive({
 })
 
 const rules = {
-  date: { required },
-  title: { required, minLength: minLength(5) },
-  description: { required },
+  date: [validationRules.required, validationRules.dateInFuture],
+  title: { required: validationRules.required, minLength: validationRules.minLength(5) },
+  description: validationRules.required,
 }
+
 const v$ = useVuelidate(rules, form)
+const getValidation = useGetValidation(v$)
 const emit = defineEmits(['close'])
 
 const createNote = async () => {
@@ -43,16 +46,8 @@ const createNote = async () => {
             v-model="form.date"
             label="Date"
             type="date"
+            :error-messages="getValidation('date')"
           />
-          <div v-if="v$.date.$error">
-            <span
-              v-for="error in v$.date.$errors"
-              :key="error.$uid"
-              class="error"
-            >
-              {{ error.$message }}
-            </span>
-          </div>
         </v-col>
       </v-row>
       <v-row>
@@ -61,16 +56,8 @@ const createNote = async () => {
             v-model="form.title"
             label="Title"
             type="text"
+            :error-messages="getValidation('title')"
           />
-          <div v-if="v$.title.$error">
-            <span
-              v-for="error in v$.date.$errors"
-              :key="error.$uid"
-              class="error"
-            >
-              {{ error.$message }}
-            </span>
-          </div>
         </v-col>
       </v-row>
       <v-row>
@@ -81,16 +68,8 @@ const createNote = async () => {
             type="text"
             outlined
             required
+            :error-messages="getValidation('description')"
           />
-          <div v-if="v$.description.$error">
-            <span
-              v-for="error in v$.description.$errors"
-              :key="error.$uid"
-              class="error"
-            >
-              заполните описание
-            </span>
-          </div>
         </v-col>
       </v-row>
       <v-row>

@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { useNotesStore } from '@/stores/notes'
-import { onMounted,computed,watchEffect } from 'vue'
+import { onMounted, computed } from 'vue'
 import { mdiDelete } from '@mdi/js'
 
 const notesStore = useNotesStore()
 onMounted(() => {
   notesStore.loadFromLocalStorage()
 })
-const notesExist = computed(() => notesStore.notes.length !== 0) 
-
+const notesExist = computed(() => notesStore.notes.length !== 0)
 
 const deleteNote = (id: string) => {
   notesStore.deleteNote(id)
@@ -17,9 +16,11 @@ const filteredNotes = computed(() => notesStore.getFilteredNotes())
 </script>
 
 <template>
-  <div v-if="notesExist" class="item">
+  <div
+    v-if="notesExist"
+    class="item"
+  >
     <v-sheet
-    
       v-for="note of filteredNotes"
       :key="note.id"
       class="d-flex justify-space-between pa-2 bg-surface-variant w-50"
@@ -40,8 +41,11 @@ const filteredNotes = computed(() => notesStore.getFilteredNotes())
         </v-expand-transition>
       </div>
     </v-sheet>
-  </div >
-  <div v-else class="notificationAboutCreateNote">
+  </div>
+  <div
+    v-else
+    class="notificationAboutCreateNote"
+  >
     <span>Create some notes now!</span>
   </div>
 </template>
@@ -56,23 +60,23 @@ const filteredNotes = computed(() => notesStore.getFilteredNotes())
   flex-direction: column;
   gap: 20px;
 }
-@keyframes noteEmergence{
-  0%{
+@keyframes noteEmergence {
+  0% {
     scale: 1 2;
-    translate:0 -100px;
+    translate: 0 -100px;
     opacity: 20%;
   }
-  50%{
+  50% {
     scale: 1 1.5;
     opacity: 45%;
   }
-  100%{
+  100% {
     opacity: 100%;
     translate: 0px 0px;
     scale: 1 1;
   }
 }
-.notificationAboutCreateNote{
+.notificationAboutCreateNote {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,6 +84,4 @@ const filteredNotes = computed(() => notesStore.getFilteredNotes())
   animation-name: noteEmergence;
   animation-duration: 0.5s;
 }
-
-
 </style>

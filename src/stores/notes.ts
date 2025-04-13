@@ -6,7 +6,7 @@ import { useToast } from 'vue-toastification'
 const toast = useToast()
 
 const showToast = () => toast.success('Note created successfully')
-const errorToast = () => toast.error('Note deleted successfully')
+const deleteToast = () => toast.error('Note deleted successfully')
 export const useNotesStore = defineStore('notes', () => {
   const notes = ref<Note[]>([])
   const currentFilter = ref<INotesFilter>({})
@@ -31,7 +31,6 @@ export const useNotesStore = defineStore('notes', () => {
     saveToLocalStorage()
     showToast()
   }
-
   //тут я храню параметры фильтрации
   const setFilter = (filter: INotesFilter) => {
     return (currentFilter.value = filter)
@@ -49,7 +48,7 @@ export const useNotesStore = defineStore('notes', () => {
   const deleteNote = (id: string) => {
     notes.value = notes.value.filter((note) => note.id !== id)
     saveToLocalStorage()
-    errorToast()
+    deleteToast()
   }
   return {
     notes,
