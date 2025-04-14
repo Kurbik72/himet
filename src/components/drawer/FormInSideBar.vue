@@ -4,6 +4,7 @@ import { reactive } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { useGetValidation } from '@/composables/useGetValidation'
 import { validationRules } from '../services/api/validation-service'
+import { NotificationService } from '../services/api/notification-service'
 const notesStore = useNotesStore()
 const form = reactive({
   date: '',
@@ -23,7 +24,10 @@ const emit = defineEmits(['close'])
 
 const createNote = async () => {
   const isValid = await v$.value.$validate()
-  if (!isValid) return
+  if (!isValid) {
+    NotificationService.warning('Please fill out all fields')
+    return
+  }
 
   notesStore.addNote({
     date: form.date,

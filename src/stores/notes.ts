@@ -1,12 +1,8 @@
 import type { INotesFilter, Note } from '@/types/note.types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { useToast } from 'vue-toastification'
+import { NotificationService } from '@/components/services/api/notification-service'
 
-const toast = useToast()
-
-const showToast = () => toast.success('Note created successfully')
-const deleteToast = () => toast.error('Note deleted successfully')
 export const useNotesStore = defineStore('notes', () => {
   const notes = ref<Note[]>([])
   const currentFilter = ref<INotesFilter>({})
@@ -29,7 +25,7 @@ export const useNotesStore = defineStore('notes', () => {
     }
     notes.value.push(newNote)
     saveToLocalStorage()
-    showToast()
+    NotificationService.success('Note added successfully')
   }
   //тут я храню параметры фильтрации
   const setFilter = (filter: INotesFilter) => {
@@ -49,7 +45,7 @@ export const useNotesStore = defineStore('notes', () => {
   const deleteNote = (id: string) => {
     notes.value = notes.value.filter((note) => note.id !== id)
     saveToLocalStorage()
-    deleteToast()
+    NotificationService.delete('Note deleted successfully')
   }
   return {
     notes,
