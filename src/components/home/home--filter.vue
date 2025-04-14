@@ -7,7 +7,7 @@ const date = ref()
 const notesStore = useNotesStore()
 
 watchEffect(() => {
-  console.log(notesStore.setFilter({ date: date.value }))
+  notesStore.setFilter({ date: date.value })
 })
 </script>
 

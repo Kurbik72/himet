@@ -28,7 +28,7 @@ const deleteNote = () => {
         <v-icon
           :icon="mdiDelete"
           size="20"
-          @click="deleteNote"
+          @click.stop.prevent="deleteNote"
         />
       </v-expand-transition>
     </div>

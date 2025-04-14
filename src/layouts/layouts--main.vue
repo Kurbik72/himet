@@ -29,12 +29,15 @@ const deleteNote = (id: string) => {
         v-if="notesExist"
         class="NotesList"
       >
-        <RouterLink :to="{}">
+        <RouterLink
+          v-for="note of filteredNotes"
+          :key="note.id"
+          style="text-decoration: none; color: inherit"
+          class="w-50"
+          :to="{ name: 'note', params: { id: note.id } }"
+        >
           <HomeListNoteItem
-            v-for="note of filteredNotes"
             :id="note.id"
-            :key="note.id"
-            class="w-50"
             :date="note.date"
             :title="note.title"
             :description="note.description"
