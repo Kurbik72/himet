@@ -5,7 +5,7 @@ export const routes: RouteRecordRaw[] = [
   { path: '/', component: () => import('@/layouts/layouts--main.vue'), name: 'home' },
   {
     path: '/notes/:id',
-    component: () => import('@/components/home/home--list-note--instanse.vue'),
+    component: () => import('@/pages/moreInfo-page.vue'),
     name: 'note',
   },
   {

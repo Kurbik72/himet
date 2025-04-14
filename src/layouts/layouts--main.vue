@@ -2,21 +2,12 @@
 import Header from '@/components/layout/Header.vue'
 import SideBar from '@/components/layout/sideBar.vue'
 import HomeFilter from '@/components/home/home--filter.vue'
-import { computed, onMounted, ref } from 'vue'
-import HomeListNoteItem from '@/components/home/home--list--note--item.vue'
-import { useNotesStore } from '@/stores/notes'
+import { ref } from 'vue'
+import HomeListNotes from '@/components/home/home--list--note.vue'
+
 const isActive = ref(false)
 const showSideBar = () => {
   isActive.value = !isActive.value
-}
-onMounted(() => {
-  notesStore.loadFromLocalStorage()
-})
-const notesStore = useNotesStore()
-const filteredNotes = computed(() => notesStore.getFilteredNotes())
-const notesExist = computed(() => notesStore.notes.length !== 0)
-const deleteNote = (id: string) => {
-  notesStore.deleteNote(id)
 }
 </script>
 
@@ -25,32 +16,7 @@ const deleteNote = (id: string) => {
     <Header @change="showSideBar" />
     <v-main
       ><HomeFilter />
-      <div
-        v-if="notesExist"
-        class="NotesList"
-      >
-        <RouterLink
-          v-for="note of filteredNotes"
-          :key="note.id"
-          style="text-decoration: none; color: inherit"
-          class="w-50"
-          :to="{ name: 'note', params: { id: note.id } }"
-        >
-          <HomeListNoteItem
-            :id="note.id"
-            :date="note.date"
-            :title="note.title"
-            :description="note.description"
-            @delete="deleteNote"
-          />
-        </RouterLink>
-      </div>
-      <div
-        v-else
-        class="notificationAboutCreateNote"
-      >
-        <span>Create some notes now!</span>
-      </div>
+      <HomeListNotes />
     </v-main>
     <SideBar v-model="isActive" />
   </v-layout>
