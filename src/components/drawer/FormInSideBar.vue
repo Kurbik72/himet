@@ -3,8 +3,8 @@ import { useNotesStore } from '@/stores/notes'
 import { reactive } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { useGetValidation } from '@/composables/useGetValidation'
-import { validationRules } from '../services/api/validation-service'
-import { NotificationService } from '../services/api/notification-service'
+import { validationRules } from '@/components/services'
+import { NotificationService } from '@/components/services'
 const notesStore = useNotesStore()
 const form = reactive({
   date: '',

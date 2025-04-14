@@ -1,7 +1,7 @@
 import type { INotesFilter, Note } from '@/types/note.types'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import { NotificationService } from '@/components/services/api/notification-service'
+import { computed, ref } from 'vue'
+import { NotificationService } from '@/components/services'
 
 export const useNotesStore = defineStore('notes', () => {
   const notes = ref<Note[]>([])
@@ -35,6 +35,7 @@ export const useNotesStore = defineStore('notes', () => {
   const getNotesByFilter = (filter: INotesFilter) => {
     return notes.value.filter((note) => note.date === filter?.date)
   }
+
   const getFilteredNotes = () => {
     const isFilterEmpty = (currentFilter.value.date ?? true) === true
 
@@ -47,6 +48,7 @@ export const useNotesStore = defineStore('notes', () => {
     saveToLocalStorage()
     NotificationService.delete('Note deleted successfully')
   }
+  const isFilterActive = computed(() => !!currentFilter.value.date)
   return {
     notes,
     loadFromLocalStorage,
@@ -56,5 +58,6 @@ export const useNotesStore = defineStore('notes', () => {
     getFilteredNotes,
     getNotesByFilter,
     deleteNote,
+    isFilterActive,
   }
 })
