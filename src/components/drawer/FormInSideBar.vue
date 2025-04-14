@@ -30,10 +30,11 @@ const createNote = async () => {
     title: form.title,
     description: form.description,
   })
-  emit('close')
   form.date = ''
   form.title = ''
   form.description = ''
+  v$.value.$reset()
+  emit('close')
 }
 </script>
 
