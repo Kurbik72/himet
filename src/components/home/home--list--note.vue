@@ -31,7 +31,6 @@ const deleteNote = (id: string) => {
         <span>There are no notes on this date</span>
       </div>
 
-      <!-- Список заметок -->
       <div
         v-else
         class="notes-list"
@@ -54,7 +53,6 @@ const deleteNote = (id: string) => {
       </div>
     </div>
 
-    <!-- Если нет заметок вообще -->
     <div
       v-else
       class="empty-state"
@@ -73,5 +71,13 @@ const deleteNote = (id: string) => {
   display: flex;
   gap: 10px;
   flex-direction: column;
+}
+.no-notes {
+  display: flex;
+  justify-content: center;
+}
+.empty-state {
+  display: flex;
+  justify-content: center;
 }
 </style>
