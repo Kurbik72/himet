@@ -13,8 +13,8 @@ const form = reactive({
 
 const rules = {
   date: [validationRules.required, validationRules.dateInFuture],
-  title: { required: validationRules.required, minLength: validationRules.minLength(5) },
-  description: validationRules.required,
+  title: [validationRules.required, validationRules.minLength(5)],
+  description: [validationRules.required],
 }
 
 const v$ = useVuelidate(rules, form)

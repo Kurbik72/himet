@@ -7,8 +7,7 @@ const date = ref()
 const notesStore = useNotesStore()
 
 watchEffect(() => {
-  notesStore.setFilter({ date: date.value })
-
+  console.log(notesStore.setFilter({ date: date.value }))
 })
 </script>
 
@@ -21,6 +20,7 @@ watchEffect(() => {
       v-model="date"
       label="Search by date"
       type="date"
+      clearable
     >
     </v-text-field>
   </v-responsive>

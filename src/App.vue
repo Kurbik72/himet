@@ -6,4 +6,7 @@ import LayoutsMain from '@/layouts/layouts--main.vue'
   <v-app>
     <LayoutsMain />
   </v-app>
+  <main>
+    <Router-view />
+  </main>
 </template>

@@ -40,7 +40,8 @@ export const useNotesStore = defineStore('notes', () => {
     return notes.value.filter((note) => note.date === filter?.date)
   }
   const getFilteredNotes = () => {
-    const isFilterEmpty = currentFilter.value.date === undefined
+    const isFilterEmpty = (currentFilter.value.date ?? true) === true
+
     if (isFilterEmpty) return notes.value
 
     return getNotesByFilter(currentFilter.value)
