@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Note } from '@/types/note.types'
 import { mdiDelete } from '@mdi/js'
-import { ref } from 'vue'
 
 const props = defineProps<Note>()
 
@@ -11,14 +10,6 @@ const emit = defineEmits<{
 
 const deleteNote = () => {
   emit('delete', props.id)
-}
-
-const isActiveCursor = ref(false)
-const handleMouseOver = () => {
-  isActiveCursor.value = true
-}
-const handleMouseLeave = () => {
-  isActiveCursor.value = false
 }
 </script>
 
@@ -32,14 +23,9 @@ const handleMouseLeave = () => {
       {{ props.title }}
     </div>
 
-    <div
-      class="w-25 d-flex justify-end align-center"
-      @mouseover="handleMouseOver"
-      @mouseleave="handleMouseLeave"
-    >
+    <div class="w-25 d-flex justify-end align-center">
       <v-expand-transition mode="out-in">
         <v-icon
-          v-show="isActiveCursor"
           :icon="mdiDelete"
           size="20"
           @click.stop.prevent="deleteNote"
