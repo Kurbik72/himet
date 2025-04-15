@@ -5,21 +5,21 @@ export const NotificationService = {
   success: (message: string) => {
     toast(message, {
       type: TYPE.SUCCESS,
-      position: POSITION.BOTTOM_RIGHT,
+      position: POSITION.BOTTOM_CENTER,
       timeout: 1500,
     })
   },
   delete: (message: string) => {
     toast(message, {
       type: TYPE.ERROR,
-      position: POSITION.BOTTOM_RIGHT,
+      position: POSITION.BOTTOM_CENTER,
       timeout: 1500,
     })
   },
   warning: (message: string) => {
     toast(message, {
       type: TYPE.WARNING,
-      position: POSITION.BOTTOM_RIGHT,
+      position: POSITION.BOTTOM_CENTER,
       timeout: 1500,
     })
   },

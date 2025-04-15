@@ -13,6 +13,7 @@ const handleClose = () => {
 <template>
   <v-navigation-drawer
     :model-value="props.modelValue"
+    location="right"
     temporary
     @update:model-value="emit('update:modelValue')"
   >

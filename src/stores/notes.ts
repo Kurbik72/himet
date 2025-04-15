@@ -27,7 +27,6 @@ export const useNotesStore = defineStore('notes', () => {
     saveToLocalStorage()
     NotificationService.success('Note added successfully')
   }
-  //тут я храню параметры фильтрации
   const setFilter = (filter: INotesFilter) => {
     return (currentFilter.value = filter)
   }
